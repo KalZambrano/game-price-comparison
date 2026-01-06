@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Deal } from '../services/cheapshark';
 
 interface GameCardProps {
@@ -78,7 +77,7 @@ export const GameCard: React.FC<GameCardProps> = ({ deal, storeName }) => {
         )}
 
         <a
-          href={`/game/${deal.gameID}`}
+          href={`/game/?link=${deal.gameID}`}
           className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Ver Detalles
