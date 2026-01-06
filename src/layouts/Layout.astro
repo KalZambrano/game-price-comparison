@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Compara precios de videojuegos en múltiples tiendas y encuentra las mejores ofertas" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <footer class="bg-gray-800 text-white py-8 mt-20">
+      <div class="container mx-auto px-4 text-center">
+        <p class="mb-2">
+          Datos proporcionados por <a href="https://www.cheapshark.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">CheapShark</a>
+        </p>
+        <p class="text-gray-400 text-sm">
+          © 2024 Game Price Comparison. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
