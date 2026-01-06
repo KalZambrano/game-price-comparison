@@ -67,6 +67,14 @@ export const DealsGrid: React.FC = () => {
     return store?.storeName || 'Unknown Store';
   };
 
+  const getStoreIcon = (storeID: string) => {
+    const store = stores.find((s) => s.storeID === storeID);
+    return store?.images?.logo || '';
+  }
+
+  console.log('Deals:', deals);
+  console.log('Stores:', stores);
+
   return (
     <div>
       <FilterBar
@@ -89,6 +97,7 @@ export const DealsGrid: React.FC = () => {
                 key={deal.dealID}
                 deal={deal}
                 storeName={getStoreName(deal.storeID)}
+                storeIcon={getStoreIcon(deal.storeID)}
               />
             ))}
           </div>

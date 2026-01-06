@@ -142,7 +142,7 @@ export default function GamesPage() {
           </section>
 
           {/* <!-- Stats Section --> */}
-          <section className="container mx-auto px-4 py-12">
+          <section className="container mx-auto px-4 py-12 w-5/6">
             <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">
                 💰 Precio Histórico Más Bajo
