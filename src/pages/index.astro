@@ -1,51 +1,36 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { SearchBar } from '../components/SearchBar';
-import { DealsGrid } from '../components/DealsGrid';
+import Layout from "../layouts/Layout.astro";
+import { DealsGrid } from "../components/DealsGrid";
 ---
 
 <Layout title="Game Price Comparison - Encuentra las mejores ofertas">
-  <main class="min-h-screen bg-gray-50">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
-      <div class="container mx-auto px-4">
-        <h1 class="text-5xl font-bold text-center mb-4">
-          🎮 Game Price Comparison
-        </h1>
-        <p class="text-xl text-center mb-8 text-blue-100">
-          Encuentra las mejores ofertas en videojuegos para PC
-        </p>
-        <SearchBar client:load />
-      </div>
-    </section>
 
-    <!-- Stats Section -->
-    <section class="container mx-auto px-4 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-16">
-        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-          <div class="text-4xl mb-2">💰</div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-2">Mejor Precio</h3>
-          <p class="text-gray-600">Comparamos precios de múltiples tiendas</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-          <div class="text-4xl mb-2">🔥</div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-2">Ofertas en Vivo</h3>
-          <p class="text-gray-600">Actualizaciones en tiempo real</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-          <div class="text-4xl mb-2">⭐</div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-2">Valoraciones</h3>
-          <p class="text-gray-600">Metacritic y Steam ratings incluidos</p>
-        </div>
+  <!-- Stats Section -->
+  <section class="container mx-auto px-4 py-8 w-5/6 mt-40">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-16">
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+        <div class="text-4xl mb-2">💰</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Mejor Precio</h3>
+        <p class="text-gray-600">Comparamos precios de múltiples tiendas</p>
       </div>
-    </section>
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+        <div class="text-4xl mb-2">🔥</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Ofertas en Vivo</h3>
+        <p class="text-gray-600">Actualizaciones en tiempo real</p>
+      </div>
+      <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+        <div class="text-4xl mb-2">⭐</div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">Valoraciones</h3>
+        <p class="text-gray-600">Metacritic y Steam ratings incluidos</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Deals Section -->
-    <section class="container mx-auto px-4 py-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-6">
-        🎯 Mejores Ofertas del Momento
-      </h2>
-      <DealsGrid client:load />
-    </section>
-  </main>
+  <!-- Deals Section -->
+  <section class="container mx-auto px-4 py-12 w-5/6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">
+      🎯 Mejores Ofertas del Momento
+    </h2>
+    <DealsGrid client:load />
+  </section>
 </Layout>

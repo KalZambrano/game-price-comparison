@@ -1,0 +1,20 @@
+---
+import { SearchBar } from "./SearchBar";
+---
+
+<header
+  class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 fixed w-full z-10 top-0 shadow-md"
+>
+  <div class="container flex items-center justify-between w-5/6 mx-auto space-x-8">
+    <a href="/">
+      <h1 class="text-2xl font-bold">
+        🎮 Game Price Comparison
+      </h1>
+      <p class="text-xl text-blue-100">
+        Encuentra las mejores ofertas en videojuegos para PC
+      </p>
+    </a>
+
+    <SearchBar client:load />
+  </div>
+</header>
