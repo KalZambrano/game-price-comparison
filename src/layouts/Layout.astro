@@ -1,4 +1,6 @@
 ---
+import Header from '@/components/Header.astro';
+
 interface Props {
   title: string;
 }
@@ -16,15 +18,18 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
-    <slot />
-    <footer class="bg-gray-800 text-white py-8 mt-20">
+  <body class="bg-gray-50">
+    <Header />
+    <main class="min-h-screen">
+      <slot />
+    </main>
+    <footer class="bg-gray-800 text-white py-8">
       <div class="container mx-auto px-4 text-center">
         <p class="mb-2">
           Datos proporcionados por <a href="https://www.cheapshark.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">CheapShark</a>
         </p>
         <p class="text-gray-400 text-sm">
-          © 2024 Game Price Comparison. Todos los derechos reservados.
+          © 2025 Game Price Comparison.
         </p>
       </div>
     </footer>
