@@ -7,6 +7,7 @@ export const SearchBar: React.FC = () => {
   const [results, setResults] = useState<GameLookup[]>([]);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleSearch = async (searchQuery: string) => {
     setQuery(searchQuery);
@@ -20,7 +21,7 @@ export const SearchBar: React.FC = () => {
     setLoading(true);
     try {
       const games = await searchGames(searchQuery);
-      setResults(games.slice(0, 8));
+      setResults(games.slice(0, 4));
       setShowResults(true);
     } catch (error) {
       console.error('Error searching games:', error);
@@ -31,15 +32,21 @@ export const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="relative w-1/3 max-w-2xl">
+    <div className="relative w-full md:w-1/3 max-w-2xl">
       <div className="relative">
         <input
           type="text"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
-          onFocus={() => results.length > 0 && setShowResults(true)}
+          onFocus={() => {
+            setIsFocused(true);
+            setShowResults(true);
+          }}
+          onBlur={() => {
+            setTimeout(() => setIsFocused(false), 200);
+          }}
           placeholder="Buscar juegos..."
-          className="w-full px-4 py-3 pl-12 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
+          className="w-full px-3 py-2 pl-12 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
         />
         <svg
           className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -56,14 +63,8 @@ export const SearchBar: React.FC = () => {
         </svg>
       </div>
 
-      {loading && (
-        <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg p-4 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-        </div>
-      )}
-
-      {showResults && results.length > 0 && !loading && (
-        <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50">
+      {showResults && results.length > 0 && isFocused && (
+        <div className="absolute right-0 top-full mt-2 w-[550px] bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50">
           {results.map((game) => (
             <a
               key={game.gameID}
@@ -74,7 +75,7 @@ export const SearchBar: React.FC = () => {
               <img
                 src={game.thumb}
                 alt={game.external}
-                className="w-16 h-16 object-cover rounded mr-3"
+                className="w-40 h-16 object-cover rounded-sm mr-3"
               />
               <div className="flex-1">
                 <h4 className="font-semibold text-gray-800">{game.external}</h4>
@@ -100,7 +101,7 @@ export const SearchBar: React.FC = () => {
         </div>
       )}
 
-      {showResults && results.length === 0 && !loading && query.length >= 2 && (
+      {showResults && results.length === 0 && query.length >= 2 && isFocused && (
         <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg p-4 text-center text-gray-600">
           No se encontraron juegos
         </div>

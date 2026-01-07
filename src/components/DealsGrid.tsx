@@ -19,6 +19,7 @@ export const DealsGrid: React.FC = () => {
 
   useEffect(() => {
     loadDeals(true);
+    setLoading(false);
   }, [selectedStore, sortBy]);
 
   const loadStores = async () => {
@@ -30,10 +31,10 @@ export const DealsGrid: React.FC = () => {
     }
   };
 
-  const loadDeals = async (reset = false) => {
+  const loadDeals = async (reset = false, pageNumber?: number) => {
     setLoading(true);
     try {
-      const currentPage = reset ? 0 : page;
+      const currentPage = reset ? 0 : (pageNumber !== undefined ? pageNumber : page);
       const dealsData = await getDeals({
         storeID: selectedStore || undefined,
         sortBy: sortBy as any,
@@ -47,6 +48,7 @@ export const DealsGrid: React.FC = () => {
         setPage(0);
       } else {
         setDeals((prev) => [...prev, ...dealsData]);
+        setPage(currentPage);
       }
 
       setHasMore(dealsData.length === 20);
@@ -58,8 +60,8 @@ export const DealsGrid: React.FC = () => {
   };
 
   const loadMore = () => {
-    setPage((prev) => prev + 1);
-    loadDeals(false);
+    const nextPage = page + 1;
+    loadDeals(false, nextPage);
   };
 
   const getStoreName = (storeID: string) => {
@@ -87,7 +89,8 @@ export const DealsGrid: React.FC = () => {
 
       {loading && deals.length === 0 ? (
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500">
+          </div>
         </div>
       ) : (
         <>

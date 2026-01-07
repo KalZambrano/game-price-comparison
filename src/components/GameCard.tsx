@@ -30,41 +30,44 @@ export const GameCard: React.FC<GameCardProps> = ({
         )}
       </div>
 
-      <div className="p-4">
-        <h3 className="font-bold text-lg mb-2 line-clamp-2 min-h-[3.5rem]">
-          {deal.title}
-        </h3>
+      <div className="py-2 px-4 flex flex-col justify-between h-56">
+        <div>
+          <h3 className="font-bold text-lg mb-2 line-clamp-2 min-h-[3.5rem]">
+            {deal.title}
+          </h3>
 
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex flex-col">
-            <span className="text-2xl font-bold text-green-600">
-              ${deal.salePrice}
-            </span>
-            {isOnSale && (
-              <span className="text-sm text-gray-500 line-through">
-                ${deal.normalPrice}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-green-600">
+                ${deal.salePrice}
               </span>
-            )}
+              {isOnSale && (
+                <span className="text-sm text-gray-500 line-through">
+                  ${deal.normalPrice}
+                </span>
+              )}
+            </div>
           </div>
+
+          {storeName && (
+            <div className="text-sm text-gray-600 mb-3 flex items-center">
+              <span className="font-semibold">
+                {storeIcon && (
+                  <img
+                    src={`https://www.cheapshark.com/` + storeIcon}
+                    alt={`Icono de la tienda ` + storeName}
+                    className="inline-block mr-1 size-6"
+                  />
+                )}
+              </span>{" "}
+              {storeName}
+            </div>
+          )}
         </div>
 
-        {storeName && (
-          <div className="text-sm text-gray-600 mb-3 flex items-center">
-            <span className="font-semibold">
-              {storeIcon && (
-                <img
-                  src={`https://www.cheapshark.com/` + storeIcon}
-                  alt={`Icono de la tienda ` + storeName}
-                  className="inline-block mr-1 size-6"
-                />
-              )}
-            </span>{" "}
-            {storeName}
-          </div>
-        )}
-
         <a
-          href={`/game/?link=${deal.gameID}`}
+          href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
+          target="_blank"
           className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Ver Detalles

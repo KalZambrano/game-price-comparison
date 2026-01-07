@@ -51,8 +51,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <option value="Deal Rating">Mejor oferta</option>
             <option value="Savings">Mayor descuento</option>
             <option value="Price">Precio más bajo</option>
-            <option value="Metacritic">Metacritic</option>
-            <option value="Reviews">Reviews Steam</option>
             <option value="Release">Más reciente</option>
             <option value="Title">Título A-Z</option>
           </select>

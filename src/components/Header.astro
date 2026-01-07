@@ -5,14 +5,31 @@ import { SearchBar } from "./SearchBar";
 <header
   class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 fixed w-full z-10 top-0 shadow-md"
 >
-  <div class="container flex items-center justify-between w-5/6 mx-auto space-x-8">
+  <div class="container flex flex-col md:flex-row items-center justify-between w-5/6 mx-auto space-x-8">
     <a href="/">
       <h1 class="text-2xl font-bold">
-        🎮 Game Price Comparison
+        🎮 GPC
       </h1>
-      <p class="text-xl text-blue-100">
-        Encuentra las mejores ofertas en videojuegos para PC
-      </p>
+      <nav>
+        <ul class="flex space-x-6 mt-2 md:mt-0">
+          <li>
+            <a
+              href="/"
+              class="hover:underline"
+            >
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a
+              href="/stores"
+              class="hover:underline"
+            >
+              Tiendas
+            </a>
+          </li>
+        </ul>
+      </nav>
     </a>
 
     <SearchBar client:load />

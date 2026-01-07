@@ -63,7 +63,9 @@ export default function GamesPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-50 grid place-content-center">
-        <p className="text-3xl font-bold animate-pulse">Cargando...</p>
+        <div className="flex justify-center items-center py-20">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+        </div>
       </main>
     );
   }
@@ -122,7 +124,7 @@ export default function GamesPage() {
           </section>
 
           {/* <!-- Stats Section --> */}
-          <section className="container mx-auto px-4 py-12 w-5/6">
+          <section className="container mx-auto px-4 pb-12 w-5/6">
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
               🏪 Comparación de Precios por Tienda
             </h2>
