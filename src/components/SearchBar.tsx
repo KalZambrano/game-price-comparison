@@ -31,7 +31,7 @@ export const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-2xl mx-auto">
+    <div className="relative w-1/3 max-w-2xl">
       <div className="relative">
         <input
           type="text"
@@ -39,7 +39,7 @@ export const SearchBar: React.FC = () => {
           onChange={(e) => handleSearch(e.target.value)}
           onFocus={() => results.length > 0 && setShowResults(true)}
           placeholder="Buscar juegos..."
-          className="w-full px-4 py-3 pl-12 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+          className="w-full px-4 py-3 pl-12 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
         />
         <svg
           className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -67,7 +67,7 @@ export const SearchBar: React.FC = () => {
           {results.map((game) => (
             <a
               key={game.gameID}
-              href={`/game/${game.gameID}`}
+              href={`/game/?link=${game.gameID}`}
               className="flex items-center p-3 hover:bg-gray-100 border-b border-gray-200 last:border-b-0"
               onClick={() => setShowResults(false)}
             >

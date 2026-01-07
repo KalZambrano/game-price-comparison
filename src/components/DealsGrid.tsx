@@ -72,8 +72,8 @@ export const DealsGrid: React.FC = () => {
     return store?.images?.logo || '';
   }
 
-  console.log('Deals:', deals);
-  console.log('Stores:', stores);
+  // console.log('Deals:', deals);
+  // console.log('Stores:', stores);
 
   return (
     <div>

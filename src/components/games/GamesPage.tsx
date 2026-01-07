@@ -68,8 +68,11 @@ export default function GamesPage() {
     );
   }
 
+  console.log(gameInfo);
+  console.log(stores);
+
   return (
-    <main className="min-h-screen bg-gray-50">
+    <>
       {error || !gameInfo ? (
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
@@ -88,54 +91,31 @@ export default function GamesPage() {
       ) : (
         <>
           {/* <!-- Hero Section --> */}
-          <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-12">
+          <section className="mt-28 mb-12 mx-auto w-5/6 flex flex-col md:flex-row gap-8 shadow-lg">
             <div className="container mx-auto px-4">
-                  <a
-                    href="/"
-                    className="inline-flex items-center text-white hover:text-blue-200 mb-4"
-                  >
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                    Volver al inicio
-                  </a>
-              <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex flex-col lg:flex-row gap-8 justify-center items-center py-4">
                 <img
                   src={gameInfo.info.thumb}
                   alt={gameInfo.info.title}
                   className="w-full md:w-64 h-auto rounded-lg shadow-2xl"
                 />
-                <div className="flex-1">
-                  <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                <div className="flex-1 justify-center flex flex-col ">
+                  <h1 className="text-2xl lg:text-4xl font-bold mb-4 text-center lg:text-left">
                     {gameInfo.info.title}
                   </h1>
-                  {gameInfo.info.steamAppID && (
-                    <a
-                      href={`https://store.steampowered.com/app/${gameInfo.info.steamAppID}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg transition-colors"
-                    >
-                      <svg
-                        className="w-5 h-5 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-                      </svg>
-                      Ver en Steam
-                    </a>
-                  )}
+                  <div className="mb-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                      💰 Precio Histórico Más Bajo
+                    </h2>
+                    <div className="flex items-center gap-4">
+                      <span className="text-4xl font-bold text-green-600">
+                        ${gameInfo.cheapestPriceEver.price}
+                      </span>
+                      <span className="text-gray-600">
+                        el {formatDate(gameInfo.cheapestPriceEver.date)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -143,20 +123,6 @@ export default function GamesPage() {
 
           {/* <!-- Stats Section --> */}
           <section className="container mx-auto px-4 py-12 w-5/6">
-            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                💰 Precio Histórico Más Bajo
-              </h2>
-              <div className="flex items-center gap-4">
-                <span className="text-4xl font-bold text-green-600">
-                  ${gameInfo.cheapestPriceEver.price}
-                </span>
-                <span className="text-gray-600">
-                  el {formatDate(gameInfo.cheapestPriceEver.date)}
-                </span>
-              </div>
-            </div>
-
             <h2 className="text-3xl font-bold text-gray-800 mb-6">
               🏪 Comparación de Precios por Tienda
             </h2>
@@ -168,7 +134,7 @@ export default function GamesPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {gameInfo.deals
                   .slice()
                   .sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
@@ -178,36 +144,50 @@ export default function GamesPage() {
                     const storeImage = getStoreImage(deal.storeID);
 
                     return (
-                      <div key={deal.dealID} className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="font-bold text-lg">{storeName}</h3>
-                          {savings > 0 && (
-                            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                              -{Math.round(savings)}%
+                      <div
+                        key={deal.dealID}
+                        className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex justify-between flex-col"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between mb-4 flex-wrap">
+                            <span className="flex gap-x-2">
+                              <img
+                                src={`https://www.cheapshark.com/${storeImage}`}
+                                alt={storeName}
+                                className="w-8 h-8 mr-2"
+                              />
+                              <label className="font-bold text-lg">
+                                {storeName}
+                              </label>
                             </span>
-                          )}
-                        </div>
-
-                        <div className="mb-4">
-                          <div className="text-3xl font-bold text-green-600 mb-1">
-                            ${deal.price}
+                            {savings > 0 && (
+                              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                -{Math.round(savings)}%
+                              </span>
+                            )}
                           </div>
+
+                          <div className="mb-4">
+                            <div className="text-3xl font-bold text-green-600 mb-1">
+                              ${deal.price}
+                            </div>
+                            {savings > 0 && (
+                              <div className="text-gray-500 line-through">
+                                ${deal.retailPrice}
+                              </div>
+                            )}
+                          </div>
+
                           {savings > 0 && (
-                            <div className="text-gray-500 line-through">
-                              ${deal.retailPrice}
+                            <div className="mb-4 text-sm text-gray-600">
+                              Ahorras $
+                              {(
+                                parseFloat(deal.retailPrice) -
+                                parseFloat(deal.price)
+                              ).toFixed(2)}
                             </div>
                           )}
                         </div>
-
-                        {savings > 0 && (
-                          <div className="mb-4 text-sm text-gray-600">
-                            Ahorras $
-                            {(
-                              parseFloat(deal.retailPrice) -
-                              parseFloat(deal.price)
-                            ).toFixed(2)}
-                          </div>
-                        )}
 
                         <a
                           href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
@@ -225,6 +205,6 @@ export default function GamesPage() {
           </section>
         </>
       )}
-    </main>
+    </>
   );
 }
