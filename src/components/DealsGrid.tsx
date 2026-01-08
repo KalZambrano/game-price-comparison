@@ -19,8 +19,21 @@ export const DealsGrid: React.FC = () => {
 
   useEffect(() => {
     loadDeals(true);
-    setLoading(false);
   }, [selectedStore, sortBy]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (loading || !hasMore) return;
+      const threshold = 300; // px from bottom to trigger
+      const scrolledToBottom = window.innerHeight + window.scrollY >= document.documentElement.offsetHeight - threshold;
+      if (scrolledToBottom) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loading, hasMore, page, selectedStore, sortBy]);
 
   const loadStores = async () => {
     try {
@@ -64,8 +77,6 @@ export const DealsGrid: React.FC = () => {
     loadDeals(false, nextPage);
   };
 
-  
-
   // console.log('Deals:', deals);
   // console.log('Stores:', stores);
 
@@ -99,13 +110,20 @@ export const DealsGrid: React.FC = () => {
 
           {hasMore && (
             <div className="flex justify-center">
-              <button
-                onClick={loadMore}
-                disabled={loading}
-                className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Cargando...' : 'Cargar más'}
-              </button>
+              {loading ? (
+                <div className="flex items-center space-x-2 py-6">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+                  <span>Cargando...</span>
+                </div>
+              ) : (
+                <button
+                  onClick={loadMore}
+                  disabled={loading}
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
+                  Cargar más
+                </button>
+              )}
             </div>
           )}
         </>

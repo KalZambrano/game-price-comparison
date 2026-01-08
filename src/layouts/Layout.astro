@@ -33,5 +33,40 @@ const { title } = Astro.props;
         </p>
       </div>
     </footer>
+
+    <!-- Scroll to top button (visible after scrolling down) -->
+    <div id="scroll-to-top-wrapper" class="fixed bottom-8 right-6 z-50">
+      <button id="scrollToTop" type="button" class="group relative flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 opacity-0 pointer-events-none transition-opacity duration-200" aria-label="Ir arriba">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+        <div class="absolute bottom-full mb-2 right-1/2 transform translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
+          <div class="bg-black text-white text-xs rounded px-2 py-1">Ir al inicio</div>
+        </div>
+      </button>
+    </div>
+
+    <script>
+      (function () {
+        const btn = document.getElementById('scrollToTop');
+        if (!btn) return;
+        const threshold = 200;
+
+        const toggle = () => {
+          if (window.scrollY > threshold) {
+            btn.classList.remove('opacity-0', 'pointer-events-none');
+          } else {
+            btn.classList.add('opacity-0', 'pointer-events-none');
+          }
+        };
+
+        window.addEventListener('scroll', toggle, { passive: true });
+        document.addEventListener('DOMContentLoaded', toggle);
+
+        btn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
+    </script>
   </body>
 </html>
