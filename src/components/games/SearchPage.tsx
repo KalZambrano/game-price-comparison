@@ -1,6 +1,7 @@
 import { searchGames, type GameDetails } from "@/services/cheapshark";
 import { useState, useEffect } from "react";
 import { DetailCard } from "../DetailCard";
+import { FaChevronLeft } from "react-icons/fa";
 
 export default function SearchPage() {
   const [query, setQuery] = useState<string | null>(null);
@@ -37,7 +38,14 @@ export default function SearchPage() {
 
   const totalResults = results.length;
   return (
-    <section className="py-36 md:py-20">
+    <section className="py-40 md:py-24">
+      <a
+        href="/"
+        className="absolute top-40 md:top-24 left-6 hover:underline hover:text-blue-400 transition-colors flex items-center"
+      >
+        <FaChevronLeft className="inline-block mr-2" />
+        Volver al inicio
+      </a>
       {loading ? (
         <article className="min-h-screen bg-gray-50 grid place-content-center">
           <div className="flex justify-center items-center">
