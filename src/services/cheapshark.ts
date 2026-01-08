@@ -34,6 +34,17 @@ export interface Store {
   };
 }
 
+export interface GameDetails {
+  gameID: string;
+  steamAppID: string;
+  cheapest: string;
+  cheapestDealID: string;
+  external: string;
+  internalName: string;
+  thumb: string;
+}
+
+
 export interface GameInfo {
   info: {
     title: string;
@@ -83,7 +94,7 @@ export async function getDeals(params?: {
   onSale?: boolean;
 }): Promise<Deal[]> {
   const searchParams = new URLSearchParams();
-  
+
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -91,7 +102,7 @@ export async function getDeals(params?: {
       }
     });
   }
-  
+
   const response = await fetch(`${BASE_URL}/deals?${searchParams}`);
   return response.json();
 }
@@ -106,4 +117,14 @@ export async function searchGames(title: string): Promise<GameLookup[]> {
 export async function getGameInfo(gameID: string): Promise<GameInfo> {
   const response = await fetch(`${BASE_URL}/games?id=${gameID}`);
   return response.json();
+}
+
+export const getStoreName = (stores: Store[], storeID: string) => {
+  const store = stores.find((s) => s.storeID === storeID);
+  return store?.storeName || 'Unknown Store';
+};
+
+export const getStoreIcon = (stores: Store[], storeID: string) => {
+  const store = stores.find((s) => s.storeID === storeID);
+  return store?.images?.logo || '';
 }
