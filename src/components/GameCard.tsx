@@ -70,7 +70,7 @@ export const GameCard: React.FC<GameCardProps> = ({
           target="_blank"
           className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Ver Detalles
+          Comprar
         </a>
       </div>
     </div>

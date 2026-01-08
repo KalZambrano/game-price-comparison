@@ -35,16 +35,16 @@ export default function SearchPage() {
 
   const totalResults = results.length;
   return (
-    <section>
+    <section className="py-36 md:py-20">
       {loading ? (
         <article className="min-h-screen bg-gray-50 grid place-content-center">
-          <div className="flex justify-center items-center py-20">
+          <div className="flex justify-center items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
           </div>
         </article>
       ) : (
         <article>
-          <div className="min-h-screen bg-gray-50 py-20 w-5/6 mx-auto mt-8">
+          <div className="min-h-screen bg-gray-50 w-5/6 mx-auto mt-8">
             <div className="container mx-auto px-4">
               <span>Resultados de "{query}"</span>
               <h1 className="text-3xl font-bold mb-6">
