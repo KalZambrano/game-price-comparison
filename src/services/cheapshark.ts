@@ -104,6 +104,7 @@ export async function getDeals(params?: {
   }
 
   const response = await fetch(`${BASE_URL}/deals?${searchParams}`);
+  // console.log(searchParams.toString())
   return response.json();
 }
 

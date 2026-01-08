@@ -12,17 +12,16 @@ export function DetailCard({ game }: { game: GameDetails }) {
         />
       </div>
 
-      <div className="py-2 px-4 flex flex-col justify-between h-32">
+      <div className="py-2 px-4 flex flex-col justify-between h-36">
         <div>
-          <h3 className="font-bold text-lg line-clamp-2">
-            {game.external}
-          </h3>
-          <p className="text-green-700 font-semibold">({game.cheapest} para arriba)</p>
+          <h3 className="font-bold text-lg line-clamp-2">{game.external}</h3>
+          <p className="text-green-700 font-semibold">
+            (${game.cheapest} para arriba)
+          </p>
         </div>
 
         <a
           href={`/game/?link=${game.gameID}`}
-          target="_blank"
           className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Ver Detalles

@@ -1,99 +1,70 @@
-import {
-  getStoreIcon,
-  getStoreName,
-  searchGames,
-  getStores,
-  type Deal,
-  type Store,
-  type GameDetails,
-} from "@/services/cheapshark";
+import { searchGames, type GameDetails } from "@/services/cheapshark";
 import { useState, useEffect } from "react";
 import { DetailCard } from "../DetailCard";
 
 export default function SearchPage() {
   const [query, setQuery] = useState<string | null>("");
   const [results, setResults] = useState<GameDetails[]>([]);
-  const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    loadStores();
-  }, []);
+  // const [error, setError] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     setQuery(urlParams.get("query"));
   }, []);
 
-  const loadStores = async () => {
-    try {
-      const storesData = await getStores();
-      setStores(storesData);
-    } catch (error) {
-      console.error("Error loading stores:", error);
-    }
-  };
-
   useEffect(() => {
     // let mounted = true;
+    setLoading(true);
 
     (async () => {
       try {
-      const games = await searchGames(query || "");
-      setResults(games);
-    } catch (error) {
-      console.error("Error searching games:", error);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
+        const games = await searchGames(query || "");
+        setResults(games);
+      } catch (error) {
+        console.error("Error searching games:", error);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
     })();
-  }, []);
-  const handleSearch = async (searchQuery: string) => {
-    setQuery(searchQuery);
+  }, [query]);
 
-    if (searchQuery.length < 2) {
-      setResults([]);
-      return;
-    }
+  //   console.log("Query:", query);
+  //   console.log("Results:", results);
 
-    setLoading(true);
-    try {
-      const games = await searchGames(searchQuery);
-      setResults(games);
-    } catch (error) {
-      console.error("Error searching games:", error);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  console.log("Query:", query);
-  console.log("Results:", results);
+  const totalResults = results.length;
   return (
-    <div className="min-h-screen bg-gray-50 py-20 w-5/6 mx-auto">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-6">Resultados de búsqueda</h1>
-        {/* <input
-          type="text"
-          value={query || ""}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button onClick={() => handleSearch(query)}>Buscar</button> */}
-      </div>
-      {results.length > 0 ? (
-        <div className="container mx-auto px-4 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {results.map((game) => (
-            <DetailCard key={game.gameID} game={game} />
-          ))}
-        </div>
+    <section>
+      {loading ? (
+        <article className="min-h-screen bg-gray-50 grid place-content-center">
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+          </div>
+        </article>
       ) : (
-        <div className="flex justify-center text-gray-800 font-semibold mt-10">
-          <span>No se encontraron resultados</span>
-        </div>
+        <article>
+          <div className="min-h-screen bg-gray-50 py-20 w-5/6 mx-auto mt-8">
+            <div className="container mx-auto px-4">
+              <span>Resultados de "{query}"</span>
+              <h1 className="text-3xl font-bold mb-6">
+                {totalResults} resultados encontrados
+              </h1>
+            </div>
+            {results.length > 0 ? (
+              <div className="container mx-auto px-4 mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {results.map((game) => (
+                  <DetailCard key={game.gameID} game={game} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex justify-center text-gray-800 font-semibold mt-10">
+                <span>No se encontraron resultados</span>
+              </div>
+            )}
+          </div>
+        </article>
       )}
-    </div>
+    </section>
   );
 }

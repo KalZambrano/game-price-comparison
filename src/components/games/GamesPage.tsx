@@ -62,11 +62,11 @@ export default function GamesPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50 grid place-content-center">
+      <article className="min-h-screen bg-gray-50 grid place-content-center">
         <div className="flex justify-center items-center py-20">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
         </div>
-      </main>
+      </article>
     );
   }
 
