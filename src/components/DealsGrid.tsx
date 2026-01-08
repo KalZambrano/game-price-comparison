@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDeals, getStores } from '../services/cheapshark';
+import { getDeals, getStores, getStoreIcon, getStoreName } from '../services/cheapshark';
 import type { Deal, Store } from '../services/cheapshark';
 import { GameCard } from './GameCard';
 import { FilterBar } from './FilterBar';
@@ -64,15 +64,7 @@ export const DealsGrid: React.FC = () => {
     loadDeals(false, nextPage);
   };
 
-  const getStoreName = (storeID: string) => {
-    const store = stores.find((s) => s.storeID === storeID);
-    return store?.storeName || 'Unknown Store';
-  };
-
-  const getStoreIcon = (storeID: string) => {
-    const store = stores.find((s) => s.storeID === storeID);
-    return store?.images?.logo || '';
-  }
+  
 
   // console.log('Deals:', deals);
   // console.log('Stores:', stores);
@@ -99,8 +91,8 @@ export const DealsGrid: React.FC = () => {
               <GameCard
                 key={deal.dealID}
                 deal={deal}
-                storeName={getStoreName(deal.storeID)}
-                storeIcon={getStoreIcon(deal.storeID)}
+                storeName={getStoreName(stores, deal.storeID)}
+                storeIcon={getStoreIcon(stores, deal.storeID)}
               />
             ))}
           </div>

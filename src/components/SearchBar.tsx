@@ -64,7 +64,7 @@ export const SearchBar: React.FC = () => {
       </div>
 
       {showResults && results.length > 0 && isFocused && (
-        <div className="absolute right-0 top-full mt-2 w-[550px] bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50">
+        <div className="absolute right-0 top-full mt-2 w-full md:w-[550px] bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50">
           {results.map((game) => (
             <a
               key={game.gameID}
@@ -75,7 +75,7 @@ export const SearchBar: React.FC = () => {
               <img
                 src={game.thumb}
                 alt={game.external}
-                className="w-40 h-16 object-cover rounded-sm mr-3"
+                className="w-20 h-8 md:w-40 md:h-16 object-cover rounded-sm mr-3"
               />
               <div className="flex-1">
                 <h4 className="font-semibold text-gray-800">{game.external}</h4>
