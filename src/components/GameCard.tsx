@@ -30,15 +30,15 @@ export const GameCard: React.FC<GameCardProps> = ({
         )}
       </div>
 
-      <div className="py-2 px-4 flex flex-col justify-between h-56">
+      <div className="py-2 px-4 flex flex-col justify-between h-48">
         <div>
-          <h3 className="font-bold text-lg mb-2 line-clamp-2 min-h-[3.5rem]">
+          <h3 className="font-bold text-base md:text-lg mb-2 truncate" title={deal.title}>
             {deal.title}
           </h3>
 
           <div className="flex items-center justify-between mb-3">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-green-600">
+              <span className="text-xl md:text-2xl font-bold text-green-600">
                 ${deal.salePrice}
               </span>
               {isOnSale && (

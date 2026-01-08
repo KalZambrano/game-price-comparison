@@ -16,9 +16,9 @@ export function DetailCard({ game }: { game: GameDetails }) {
           />
         </div>
 
-        <div className="py-2 px-4 flex flex-col justify-between h-28">
+        <div className="py-2 px-4 flex flex-col justify-between h-20">
           <div>
-            <h3 className="font-bold text-lg line-clamp-2">{game.external}</h3>
+            <h3 className="font-bold text-lg truncate" title={game.external}>{game.external}</h3>
             <p className="text-green-700 font-semibold">
               (${game.cheapest} para arriba)
             </p>

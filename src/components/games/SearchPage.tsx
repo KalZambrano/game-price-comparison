@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { DetailCard } from "../DetailCard";
 
 export default function SearchPage() {
-  const [query, setQuery] = useState<string | null>("");
+  const [query, setQuery] = useState<string | null>(null);
   const [results, setResults] = useState<GameDetails[]>([]);
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(false);
@@ -15,6 +15,8 @@ export default function SearchPage() {
 
   useEffect(() => {
     // let mounted = true;
+    if (!query) return;
+
     setLoading(true);
 
     (async () => {
@@ -30,8 +32,8 @@ export default function SearchPage() {
     })();
   }, [query]);
 
-  //   console.log("Query:", query);
-  //   console.log("Results:", results);
+  // console.log("Query:", query);
+  // console.log("Results:", results);
 
   const totalResults = results.length;
   return (
