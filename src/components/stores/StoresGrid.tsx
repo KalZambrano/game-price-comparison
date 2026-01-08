@@ -48,7 +48,7 @@ export default function StoresGrid() {
     }
   };
 
-  console.log(dealsByStore);
+  // console.log(dealsByStore);
 
   return (
     <section className="py-40 md:py-24 w-4/6 mx-auto">
@@ -56,7 +56,7 @@ export default function StoresGrid() {
         <MdOutlineShoppingCart />
         Top Ofertas por Tienda
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {storeIds.map((storeId) => (
           <StoreCard
             key={storeId}
