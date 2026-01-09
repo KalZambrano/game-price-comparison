@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getGameInfo, getStores } from "@/services/cheapshark";
 import type { GameInfo, Store } from "@/services/cheapshark";
+import { TbRosetteDiscount, TbRosetteDiscountOff } from "react-icons/tb";
+import { FaChevronLeft } from "react-icons/fa";
 
 export default function GamesPage() {
   const [id, setId] = useState<string | null>(null);
@@ -70,8 +72,13 @@ export default function GamesPage() {
     );
   }
 
-  console.log(gameInfo);
-  console.log(stores);
+  // console.log(gameInfo);
+  // console.log(stores);
+
+  const dealsWithDiscount =
+    gameInfo?.deals.filter((deal) => parseFloat(deal.savings) > 0) || [];
+  const dealsWithoutDiscount =
+    gameInfo?.deals.filter((deal) => parseFloat(deal.savings) === 0) || [];
 
   return (
     <>
@@ -92,8 +99,15 @@ export default function GamesPage() {
         </div>
       ) : (
         <>
+          <a
+            href="/"
+            className="absolute top-40 md:top-24 left-6 hover:underline hover:text-blue-400 transition-colors flex items-center"
+          >
+            <FaChevronLeft className="inline-block mr-2" />
+            Volver al inicio
+          </a>
           {/* <!-- Hero Section --> */}
-          <section className="mt-28 mb-12 mx-auto w-5/6 flex flex-col md:flex-row gap-8 shadow-lg">
+          <section className="mt-48 md:mt-28 mb-12 mx-auto w-5/6 flex flex-col md:flex-row gap-8 shadow-lg">
             <div className="container mx-auto px-4">
               <div className="flex flex-col lg:flex-row gap-8 justify-center items-center py-4">
                 <img
@@ -124,12 +138,12 @@ export default function GamesPage() {
           </section>
 
           {/* <!-- Stats Section --> */}
-          <section className="container mx-auto px-4 pb-12 w-5/6">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">
-              🏪 Comparación de Precios por Tienda
+          <section className="container mx-auto pb-12 w-5/6">
+            <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-1">
+              <TbRosetteDiscount /> Descuentos Disponibles
             </h2>
 
-            {gameInfo.deals.length === 0 ? (
+            {dealsWithDiscount.length === 0 ? (
               <div className="bg-white rounded-lg shadow-lg p-8 text-center">
                 <p className="text-gray-600 text-lg">
                   No hay ofertas disponibles en este momento.
@@ -137,7 +151,7 @@ export default function GamesPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {gameInfo.deals
+                {dealsWithDiscount
                   .slice()
                   .sort((a, b) => parseFloat(a.price) - parseFloat(b.price))
                   .map((deal) => {
@@ -162,33 +176,27 @@ export default function GamesPage() {
                                 {storeName}
                               </label>
                             </span>
-                            {savings > 0 && (
-                              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                -{Math.round(savings)}%
-                              </span>
-                            )}
+                            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                              -{Math.round(savings)}%
+                            </span>
                           </div>
 
                           <div className="mb-4">
                             <div className="text-3xl font-bold text-green-600 mb-1">
                               ${deal.price}
                             </div>
-                            {savings > 0 && (
-                              <div className="text-gray-500 line-through">
-                                ${deal.retailPrice}
-                              </div>
-                            )}
+                            <div className="text-gray-500 line-through">
+                              ${deal.retailPrice}
+                            </div>
                           </div>
 
-                          {savings > 0 && (
-                            <div className="mb-4 text-sm text-gray-600">
-                              Ahorras $
-                              {(
-                                parseFloat(deal.retailPrice) -
-                                parseFloat(deal.price)
-                              ).toFixed(2)}
-                            </div>
-                          )}
+                          <div className="mb-4 text-sm text-gray-600">
+                            Ahorras $
+                            {(
+                              parseFloat(deal.retailPrice) -
+                              parseFloat(deal.price)
+                            ).toFixed(2)}
+                          </div>
                         </div>
 
                         <a
@@ -204,6 +212,46 @@ export default function GamesPage() {
                   })}
               </div>
             )}
+          </section>
+          <section className="mb-12 mx-auto w-5/6 gap-8">
+            {dealsWithoutDiscount.length > 0 && (
+              <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-6 w-full col-span-full flex items-center gap-1">
+                <TbRosetteDiscountOff /> Tiendas a Precio Regular
+              </h2>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {dealsWithoutDiscount.map((deal) => {
+                const storeName = getStoreName(deal.storeID);
+                const storeImage = getStoreImage(deal.storeID);
+
+                return (
+                  <a
+                    href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={deal.dealID}
+                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col"
+                  >
+                    <div className="flex items-center justify-between mb-4 flex-wrap">
+                      <span className="flex gap-2">
+                        <img
+                          src={`https://www.cheapshark.com/${storeImage}`}
+                          alt={storeName}
+                          className="w-8 h-8 mr-2"
+                        />
+                        <label className="font-bold text-lg">{storeName}</label>
+                      </span>
+                    </div>
+
+                    <div className="mb-4">
+                      <div className="text-3xl font-bold text-green-600 mb-1">
+                        ${deal.price}
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
           </section>
         </>
       )}

@@ -129,3 +129,8 @@ export const getStoreIcon = (stores: Store[], storeID: string) => {
   const store = stores.find((s) => s.storeID === storeID);
   return store?.images?.logo || '';
 }
+
+export const getStoreBanner = (stores: Store[], storeID: string) => {
+  const store = stores.find((s) => s.storeID === storeID);
+  return store?.images?.banner || '';
+}
