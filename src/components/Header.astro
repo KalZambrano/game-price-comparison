@@ -1,36 +1,44 @@
 ---
 import { SearchBar } from "./SearchBar";
+import ControlIcon from "@/assets/ControlIcon.astro";
 ---
 
 <header
   class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 fixed w-full z-10 top-0 shadow-md"
+  role="banner"
 >
-  <div class="container flex flex-col md:flex-row items-center justify-between w-5/6 mx-auto space-x-8">
-    <a href="/">
-      <h1 class="text-2xl font-bold">
-        🎮 GPC
-      </h1>
-      <nav>
-        <ul class="flex space-x-6 mt-2 md:mt-0">
-          <li>
-            <a
-              href="/"
-              class="hover:underline"
-            >
-              Inicio
-            </a>
-          </li>
-          <li>
-            <a
-              href="/stores"
-              class="hover:underline"
-            >
-              Tiendas
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </a>
+  <div
+    class="container flex flex-col md:flex-row items-center justify-center md:justify-between w-5/6 mx-auto"
+  >
+    <nav class="mb-4 md:mb-0" aria-label="Navegación principal">
+      <ul class="flex justify-center items-center space-x-6 mt-2 md:mt-0">
+        <li>
+          <a
+            href="/"
+            class="flex gap-2 items-centertext-2xl font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+            title="Ir a la página de inicio"
+          >
+            <ControlIcon /> GPC
+          </a>
+        </li>
+        <li>
+          <a
+            href="/"
+            class="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+          >
+            Inicio
+          </a>
+        </li>
+        <li>
+          <a
+            href="/stores"
+            class="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+          >
+            Tiendas
+          </a>
+        </li>
+      </ul>
+    </nav>
 
     <SearchBar client:load />
   </div>

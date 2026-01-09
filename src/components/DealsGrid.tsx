@@ -91,9 +91,10 @@ export const DealsGrid: React.FC = () => {
       />
 
       {loading && deals.length === 0 ? (
-        <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500">
+        <div className="flex justify-center items-center py-20" role="status" aria-live="polite" aria-label="Cargando ofertas">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500" aria-hidden="true">
           </div>
+          <span className="sr-only">Cargando ofertas...</span>
         </div>
       ) : (
         <>
@@ -111,15 +112,16 @@ export const DealsGrid: React.FC = () => {
           {hasMore && (
             <div className="flex justify-center">
               {loading ? (
-                <div className="flex items-center space-x-2 py-6">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+                <div className="flex items-center space-x-2 py-6" role="status" aria-live="polite" aria-label="Cargando más ofertas">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" aria-hidden="true" />
                   <span>Cargando...</span>
                 </div>
               ) : (
                 <button
                   onClick={loadMore}
                   disabled={loading}
-                  className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-300"
+                  aria-label="Cargar más ofertas"
                 >
                   Cargar más
                 </button>

@@ -36,7 +36,9 @@ export const SearchBar: React.FC = () => {
   return (
     <div className="relative w-full md:w-1/3 max-w-2xl">
       <div className="flex gap-2">
+        <label htmlFor="game-search" className="sr-only">Buscar juegos</label>
         <input
+          id="game-search"
           type="text"
           value={query}
           onChange={(e) => handleSearch(e.target.value)}
@@ -58,7 +60,10 @@ export const SearchBar: React.FC = () => {
             setTimeout(() => setIsFocused(false), 200);
           }}
           placeholder="Buscar juegos..."
-          className="w-full px-3 py-2 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black"
+          aria-autocomplete="list"
+          aria-controls="game-suggestions"
+          aria-expanded={showResults && results.length > 0}
+          className="w-full px-3 py-2 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 text-black"
         />
 
         <button
@@ -67,12 +72,17 @@ export const SearchBar: React.FC = () => {
               window.location.href = `/search/?query=${encodeURIComponent(q)}`;
             }
           }}
+          aria-label="Buscar juegos"
+          title="Buscar juegos"
+          disabled={q.length < 2}
+          className="disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-white rounded"
         >
           <svg
-            className="size-10 text-gray-200 bg-red-600 p-2 rounded-full"
+            className="size-10 text-gray-200 bg-red-600 p-2 rounded-full hover:bg-red-700 transition-colors"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -85,17 +95,23 @@ export const SearchBar: React.FC = () => {
       </div>
 
       {showResults && results.length > 0 && isFocused && (
-        <div className="absolute right-0 top-full mt-2 w-full md:w-[550px] bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50">
+        <div
+          id="game-suggestions"
+          className="absolute right-0 top-full mt-2 w-full md:w-[550px] bg-white rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"
+          role="listbox"
+          aria-label="Sugerencias de juegos"
+        >
           {results.map((game) => (
             <a
               key={game.gameID}
               href={`/game/?link=${game.gameID}`}
-              className="flex items-center p-3 hover:bg-gray-100 border-b border-gray-200 last:border-b-0"
+              className="flex items-center p-3 hover:bg-gray-100 border-b border-gray-200 last:border-b-0 focus:outline-none focus:bg-gray-100 focus:ring-2 focus:ring-inset focus:ring-blue-500"
               onClick={() => setShowResults(false)}
+              role="option"
             >
               <img
                 src={game.thumb}
-                alt={game.external}
+                alt={`Portada de ${game.external}`}
                 className="w-20 h-8 md:w-40 md:h-16 object-cover rounded-sm mr-3"
               />
               <div className="flex-1">
@@ -109,6 +125,7 @@ export const SearchBar: React.FC = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -126,7 +143,7 @@ export const SearchBar: React.FC = () => {
         results.length === 0 &&
         query.length >= 2 &&
         isFocused && (
-          <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg p-4 text-center text-gray-600">
+          <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg p-4 text-center text-gray-600" role="status" aria-live="polite" aria-label="Resultado de búsqueda">
             No se encontraron juegos
           </div>
         )}

@@ -22,7 +22,8 @@ export default function StoreCard({
         <div className="bg-gray-800 px-4 py-3 flex items-center gap-2">
           <img
             src={`https://www.cheapshark.com` + storeIcon}
-            alt="Banner Icon"
+            alt="Logo de la tienda"
+            aria-label="Icono de tienda"
           />
         </div>
 
@@ -54,8 +55,10 @@ export default function StoreCard({
                 >
                   <a
                     href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
-                    className="underline truncate max-w-[60%]"
+                    className="underline truncate max-w-[60%] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-1"
                     target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Comprar ${deal.title} por $${deal.salePrice}`}
                   >
                     {deal.title}
                   </a>
@@ -79,7 +82,9 @@ export default function StoreCard({
           src={tooltip.image}
           className="fixed z-50 max-w-40 max-h-24 rounded shadow-lg pointer-events-none"
           style={{ top: tooltip.y, left: tooltip.x }}
-          alt="Tooltip"
+          alt="Vista previa del juego"
+          role="tooltip"
+          aria-hidden="true"
         />
       )}
     </article>

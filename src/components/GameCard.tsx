@@ -68,7 +68,9 @@ export const GameCard: React.FC<GameCardProps> = ({
         <a
           href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
           target="_blank"
-          className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          rel="noopener noreferrer"
+          className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300"
+          aria-label={`Comprar ${deal.title} en CheapShark por $${deal.salePrice}`}
         >
           Comprar
         </a>
