@@ -18,28 +18,38 @@ export default function StoreCard({
 
   return (
     <article>
-      <div className="rounded-xl overflow-hidden shadow-lg bg-white border">
-        <div className="bg-gray-800 px-4 py-3 flex items-center gap-2">
+      <div className="rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800 shadow-lg">
+        {/* HEADER */}
+        <div className="bg-zinc-800 px-4 py-3 flex items-center gap-2">
           <img
-            src={`https://www.cheapshark.com` + storeIcon}
+            src={`https://www.cheapshark.com${storeIcon}`}
             alt="Logo de la tienda"
             aria-label="Icono de tienda"
+            className="h-6 object-contain"
           />
         </div>
 
-        <ul className="text-sm">
+        {/* LIST */}
+        <ul className="text-sm divide-y divide-zinc-800">
           {deals.length === 0
-            ? Array.from({ length: 7 }).map((_, i) => <DealSkeleton key={i} />)
+            ? Array.from({ length: 7 }).map((_, i) => (
+                <DealSkeleton key={i} />
+              ))
             : deals.map((deal) => (
                 <li
                   key={deal.dealID}
-                  className="relative flex justify-between items-center hover:bg-blue-100 py-2 px-4"
+                  className="
+                    relative flex justify-between items-center
+                    py-2 px-4
+                    hover:bg-zinc-800/70
+                    transition-colors
+                  "
                   onMouseEnter={(e) => {
                     setTooltip({
                       visible: true,
                       image: deal.thumb,
-                      x: e.clientX,
-                      y: e.clientY,
+                      x: e.clientX + 12,
+                      y: e.clientY + 24,
                     });
                   }}
                   onMouseLeave={() =>
@@ -53,9 +63,16 @@ export default function StoreCard({
                     }))
                   }
                 >
+                  {/* TITLE */}
                   <a
                     href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
-                    className="underline truncate max-w-[60%] focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-1"
+                    className="
+                      truncate max-w-[60%]
+                      text-zinc-200 hover:text-indigo-400
+                      underline-offset-4 hover:underline
+                      focus:outline-none focus:ring-2 focus:ring-indigo-500
+                      rounded px-1 transition
+                    "
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Comprar ${deal.title} por $${deal.salePrice}`}
@@ -63,11 +80,12 @@ export default function StoreCard({
                     {deal.title}
                   </a>
 
+                  {/* PRICE */}
                   <div className="flex items-center gap-2">
-                    <span className="line-through text-gray-400">
+                    <span className="line-through text-zinc-500 text-xs">
                       ${deal.normalPrice}
                     </span>
-                    <span className="bg-gray-700 text-white px-2 py-1 rounded text-xs font-semibold w-12 text-center">
+                    <span className="bg-indigo-500/90 text-white px-2 py-1 rounded-md text-xs font-semibold w-12 text-center">
                       ${deal.salePrice}
                     </span>
                   </div>
@@ -75,12 +93,20 @@ export default function StoreCard({
               ))}
         </ul>
 
-        <div className="border-t mx-4"></div>
+        <div className="border-t border-zinc-800 mx-4" />
       </div>
+
+      {/* TOOLTIP */}
       {tooltip.visible && (
         <img
           src={tooltip.image}
-          className="fixed z-50 max-w-40 max-h-24 rounded shadow-lg pointer-events-none"
+          className="
+            fixed z-50 max-w-40 max-h-24
+            rounded-lg shadow-xl
+            pointer-events-none
+            border border-zinc-700
+            bg-zinc-900
+          "
           style={{ top: tooltip.y, left: tooltip.x }}
           alt="Vista previa del juego"
           role="tooltip"

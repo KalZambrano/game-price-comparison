@@ -64,9 +64,10 @@ export default function GamesPage() {
 
   if (loading) {
     return (
-      <article className="min-h-screen bg-gray-50 grid place-content-center">
-        <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500"></div>
+      <article className="min-h-[60vh] grid place-content-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-700 border-t-blue-500"></div>
+          <p className="text-gray-400">Cargando información del juego...</p>
         </div>
       </article>
     );
@@ -84,51 +85,61 @@ export default function GamesPage() {
     <>
       {error || !gameInfo ? (
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Juego no encontrado
-          </h1>
-          <p className="text-gray-600 mb-8">
-            No pudimos encontrar información sobre este juego.
-          </p>
-          <a
-            href="/"
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors inline-block"
-          >
-            Volver al inicio
-          </a>
+          <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-8 max-w-2xl mx-auto">
+            <h1 className="text-3xl font-bold text-white mb-4">
+              Juego no encontrado
+            </h1>
+            <p className="text-gray-300 mb-8">
+              No pudimos encontrar información sobre este juego. El enlace puede ser incorrecto o el juego puede no estar disponible actualmente.
+            </p>
+            <a
+              href="/"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+            >
+              <FaChevronLeft className="mr-2" />
+              Volver al inicio
+            </a>
+          </div>
         </div>
       ) : (
-        <>
-          <a
-            href="/"
-            className="absolute top-40 md:top-24 left-6 hover:underline hover:text-blue-400 transition-colors flex items-center"
-          >
-            <FaChevronLeft className="inline-block mr-2" />
-            Volver al inicio
-          </a>
+        <div className="py-8 md:py-12 px-4">
+          <div className="max-w-7xl mx-auto">
+            <a
+              href="/"
+              className="inline-flex items-center text-gray-300 hover:text-blue-400 transition-colors group mt-40 md:mt-20 mb-6 md:mb-8"
+            >
+              <div className="bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm border border-gray-700/50 rounded-lg px-4 py-2.5 flex items-center group-hover:border-blue-500/50 transition-all duration-300">
+                <FaChevronLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                <span>Volver al inicio</span>
+              </div>
+            </a>
           {/* <!-- Hero Section --> */}
-          <section className="mt-48 md:mt-28 mb-12 mx-auto w-5/6 flex flex-col md:flex-row gap-8 shadow-lg">
-            <div className="container mx-auto px-4">
-              <div className="flex flex-col lg:flex-row gap-8 justify-center items-center py-4">
+          <section className="mb-12 mx-auto w-full max-w-7xl px-4">
+            <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 shadow-lg">
+              <div className="flex flex-col lg:flex-row gap-8 items-center">
                 <img
                   src={gameInfo.info.thumb}
                   alt={gameInfo.info.title}
-                  className="w-full md:w-64 h-auto rounded-lg shadow-2xl"
+                  className="w-full max-w-xs rounded-xl shadow-2xl transition-transform hover:scale-105 duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = 'https://via.placeholder.com/300x400/1f2937/9ca3af?text=No+Image';
+                  }}
                 />
-                <div className="flex-1 justify-center flex flex-col ">
-                  <h1 className="text-2xl lg:text-4xl font-bold mb-4 text-center lg:text-left">
+                <div className="flex-1">
+                  <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-white">
                     {gameInfo.info.title}
                   </h1>
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                  <div className="bg-gray-800/70 p-4 rounded-lg border border-gray-700/50">
+                    <h2 className="text-xl font-semibold text-gray-300 mb-3 flex items-center gap-2">
                       💰 Precio Histórico Más Bajo
                     </h2>
-                    <div className="flex items-center gap-4">
-                      <span className="text-4xl font-bold text-green-600">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <span className="text-4xl font-bold bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent">
                         ${gameInfo.cheapestPriceEver.price}
                       </span>
-                      <span className="text-gray-600">
-                        el {formatDate(gameInfo.cheapestPriceEver.date)}
+                      <span className="text-gray-400">
+                        Registrado el {formatDate(gameInfo.cheapestPriceEver.date)}
                       </span>
                     </div>
                   </div>
@@ -138,15 +149,15 @@ export default function GamesPage() {
           </section>
 
           {/* <!-- Stats Section --> */}
-          <section className="container mx-auto pb-12 w-5/6">
-            <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-6 flex items-center gap-1">
-              <TbRosetteDiscount /> Descuentos Disponibles
+          <section className="container mx-auto px-4 pb-12 max-w-7xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+              <TbRosetteDiscount className="text-yellow-400" /> Descuentos Disponibles
             </h2>
 
             {dealsWithDiscount.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <p className="text-gray-600 text-lg">
-                  No hay ofertas disponibles en este momento.
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-8 text-center">
+                <p className="text-gray-300 text-lg">
+                  No hay ofertas con descuento disponibles en este momento.
                 </p>
               </div>
             ) : (
@@ -162,40 +173,45 @@ export default function GamesPage() {
                     return (
                       <div
                         key={deal.dealID}
-                        className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex justify-between flex-col"
+                        className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-gray-600/70 hover:shadow-xl transition-all duration-300 flex flex-col"
                       >
-                        <div>
-                          <div className="flex items-center justify-between mb-4 flex-wrap">
-                            <span className="flex gap-x-2">
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                            <span className="flex items-center gap-2">
                               <img
                                 src={`https://www.cheapshark.com/${storeImage}`}
                                 alt={storeName}
-                                className="w-8 h-8 mr-2"
+                                className="w-8 h-8 rounded-full bg-gray-700 p-1"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.src = 'https://via.placeholder.com/32/1f2937/9ca3af?text=ST';
+                                }}
                               />
-                              <label className="font-bold text-lg">
+                              <span className="font-semibold text-gray-200">
                                 {storeName}
-                              </label>
+                              </span>
                             </span>
-                            <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                              -{Math.round(savings)}%
+                            <span className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap">
+                              -{Math.round(savings)}% OFF
                             </span>
                           </div>
 
                           <div className="mb-4">
-                            <div className="text-3xl font-bold text-green-600 mb-1">
+                            <div className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-teal-400 bg-clip-text text-transparent mb-1">
                               ${deal.price}
                             </div>
-                            <div className="text-gray-500 line-through">
+                            <div className="text-gray-400 line-through text-sm">
                               ${deal.retailPrice}
                             </div>
                           </div>
 
-                          <div className="mb-4 text-sm text-gray-600">
-                            Ahorras $
-                            {(
-                              parseFloat(deal.retailPrice) -
-                              parseFloat(deal.price)
-                            ).toFixed(2)}
+                          <div className="text-sm text-gray-400 mb-6">
+                            Ahorras <span className="font-semibold text-green-400">
+                              ${(
+                                parseFloat(deal.retailPrice) -
+                                parseFloat(deal.price)
+                              ).toFixed(2)}
+                            </span>
                           </div>
                         </div>
 
@@ -203,7 +219,7 @@ export default function GamesPage() {
                           href={`https://www.cheapshark.com/redirect?dealID=${deal.dealID}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                          className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white text-center py-3 rounded-lg transition-all duration-300 font-medium"
                         >
                           Comprar Ahora
                         </a>
@@ -213,10 +229,10 @@ export default function GamesPage() {
               </div>
             )}
           </section>
-          <section className="mb-12 mx-auto w-5/6 gap-8">
+          <section className="mb-12 mx-auto max-w-7xl px-4">
             {dealsWithoutDiscount.length > 0 && (
-              <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-6 w-full col-span-full flex items-center gap-1">
-                <TbRosetteDiscountOff /> Tiendas a Precio Regular
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-2">
+                <TbRosetteDiscountOff className="text-gray-400" /> Tiendas a Precio Regular
               </h2>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -230,21 +246,25 @@ export default function GamesPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     key={deal.dealID}
-                    className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow flex flex-col"
+                    className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-gray-600/70 hover:shadow-lg transition-all duration-300 flex flex-col"
                   >
                     <div className="flex items-center justify-between mb-4 flex-wrap">
-                      <span className="flex gap-2">
+                      <span className="flex items-center gap-2">
                         <img
                           src={`https://www.cheapshark.com/${storeImage}`}
                           alt={storeName}
-                          className="w-8 h-8 mr-2"
+                          className="w-8 h-8 rounded-full bg-gray-700 p-1"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = 'https://via.placeholder.com/32/1f2937/9ca3af?text=ST';
+                          }}
                         />
-                        <label className="font-bold text-lg">{storeName}</label>
+                        <span className="font-semibold text-gray-200">{storeName}</span>
                       </span>
                     </div>
 
-                    <div className="mb-4">
-                      <div className="text-3xl font-bold text-green-600 mb-1">
+                    <div className="mt-2">
+                      <div className="text-2xl font-bold text-gray-300">
                         ${deal.price}
                       </div>
                     </div>
@@ -253,7 +273,8 @@ export default function GamesPage() {
               })}
             </div>
           </section>
-        </>
+          </div>
+        </div>
       )}
     </>
   );
