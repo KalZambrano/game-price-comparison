@@ -1,10 +1,12 @@
 ---
 import { SearchBar } from "./SearchBar";
 import ControlIcon from "@/assets/ControlIcon.astro";
+import HomeIcon from "@/assets/HomeIcon.astro";
+import StoreIcon from "@/assets/StoreIcon.astro";
 ---
 
 <header
-  class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 fixed w-full z-10 top-0 shadow-md"
+  class="bg-gray-900/90 backdrop-blur-md border-b border-gray-800 text-white py-4 fixed w-full z-10 top-0 shadow-lg"
   role="banner"
 >
   <div
@@ -15,25 +17,30 @@ import ControlIcon from "@/assets/ControlIcon.astro";
         <li>
           <a
             href="/"
-            class="flex gap-2 items-centertext-2xl font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+            class="flex gap-2 items-center text-2xl font-bold hover:text-blue-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg px-3 py-2"
             title="Ir a la página de inicio"
           >
-            <ControlIcon /> GPC
+            <ControlIcon /> 
+            <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              GamePrice
+            </span>
           </a>
         </li>
         <li>
           <a
             href="/"
-            class="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+            class="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors duration-200 rounded-lg px-3 py-2 text-sm font-medium flex items-center"
           >
+            <HomeIcon />
             Inicio
           </a>
         </li>
         <li>
           <a
             href="/stores"
-            class="hover:underline focus:outline-none focus:ring-2 focus:ring-white rounded px-2 py-1"
+            class="text-gray-300 hover:text-white hover:bg-gray-800 transition-colors duration-200 rounded-lg px-3 py-2 text-sm font-medium flex items-center"
           >
+            <StoreIcon />
             Tiendas
           </a>
         </li>
