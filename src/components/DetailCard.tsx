@@ -16,15 +16,16 @@ export function DetailCard({ game }: { game: GameDetails }) {
             loading="lazy"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = 'https://via.placeholder.com/300x400/1a1a2e/e94560?text=Game+Image';
+              target.src =
+                "https://via.placeholder.com/300x400/1a1a2e/e94560?text=Game+Image";
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-800/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="p-4">
-          <h3 
-            className="font-bold text-lg text-white truncate mb-1 group-hover:text-blue-400 transition-colors" 
+          <h3
+            className="font-bold text-lg text-white truncate mb-1 group-hover:text-blue-400 transition-colors"
             title={game.external}
           >
             {game.external}
