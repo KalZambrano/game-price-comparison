@@ -59,7 +59,7 @@ export default function StoresGrid() {
   };
 
   return (
-    <section className="py-32 md:py-24 w-11/12 xl:w-4/6 mx-auto mt-20 md:mt-8">
+    <section className="py-10 md:py-14 w-11/12 xl:w-4/6 mx-auto">
       {/* HEADER */}
       <h2 className="text-center text-2xl md:text-3xl font-semibold mb-10 flex items-center justify-center gap-3 text-zinc-100">
         <MdOutlineShoppingCart className="text-indigo-400" />

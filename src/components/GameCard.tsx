@@ -25,7 +25,8 @@ export const GameCard: React.FC<GameCardProps> = ({
             loading="lazy"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
-              target.src = 'https://via.placeholder.com/300x400/1a1a2e/e94560?text=Game+Image';
+              target.src =
+                "https://via.placeholder.com/300x400/1a1a2e/e94560?text=Game+Image";
             }}
           />
           {/* <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
@@ -39,11 +40,15 @@ export const GameCard: React.FC<GameCardProps> = ({
 
       <div className="p-4 flex flex-col justify-between min-h-[180px]">
         <div>
-          <h3 
-            className="font-bold text-lg mb-2 text-white truncate leading-tight" 
-            title={deal.title}
-          >
-            {deal.title}
+          <h3 className="font-bold text-lg mb-2 leading-tight">
+            <a
+              href={`/game/?link=${deal.gameID}`}
+              className="block truncate rounded text-white transition-colors duration-200 hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              title={`Ver información de ${deal.title}`}
+              aria-label={`Ver información y precios de ${deal.title}`}
+            >
+              {deal.title}
+            </a>
           </h3>
 
           <div className="flex items-center justify-between mb-3">
@@ -58,14 +63,14 @@ export const GameCard: React.FC<GameCardProps> = ({
               )}
             </div>
             {storeIcon && (
-              <div className="bg-gray-700 p-1 rounded-lg border border-gray-600">
+              <div title={storeName} className="bg-gray-700 p-1 rounded-lg border border-gray-600">
                 <img
                   src={`https://www.cheapshark.com/${storeIcon}`}
                   alt={`${storeName} logo`}
                   className="size-7 object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
+                    target.style.display = "none";
                   }}
                 />
               </div>
@@ -73,9 +78,7 @@ export const GameCard: React.FC<GameCardProps> = ({
           </div>
 
           {storeName && !storeIcon && (
-            <div className="text-sm text-gray-400 mb-3">
-              {storeName}
-            </div>
+            <div className="text-sm text-gray-400 mb-3">{storeName}</div>
           )}
         </div>
 
@@ -87,7 +90,9 @@ export const GameCard: React.FC<GameCardProps> = ({
           aria-label={`Comprar ${deal.title} en CheapShark por $${deal.salePrice}`}
         >
           Ver oferta
-          <span className="ml-2" aria-hidden="true">→</span>
+          <span className="ml-2" aria-hidden="true">
+            →
+          </span>
         </a>
       </div>
     </div>
