@@ -106,7 +106,7 @@ export default function GamesPage() {
           <div className="max-w-7xl mx-auto">
             <a
               href="/"
-              className="inline-flex items-center text-gray-300 hover:text-blue-400 transition-colors group mt-40 md:mt-20 mb-6 md:mb-8"
+              className="inline-flex items-center text-gray-300 hover:text-blue-400 transition-colors group mb-6 md:mb-8"
             >
               <div className="bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm border border-gray-700/50 rounded-lg px-4 py-2.5 flex items-center group-hover:border-blue-500/50 transition-all duration-300">
                 <FaChevronLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />

@@ -13,7 +13,7 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Compara precios de videojuegos en múltiples tiendas y encuentra las mejores ofertas" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon-dark.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -26,11 +26,28 @@ const { title } = Astro.props;
         document.documentElement.classList.remove('dark');
       }
     </script>
+    <style is:global>
+      /* Altura estimada del header fijo; el propio Header la corrige por JS
+         con su altura real (cambia entre móvil y escritorio). */
+      :root {
+        --header-height: 7.5rem;
+      }
+
+      @media (min-width: 768px) {
+        :root {
+          --header-height: 4rem;
+        }
+      }
+
+      html {
+        scroll-padding-top: var(--header-height);
+      }
+    </style>
   </head>
   <body class="bg-gray-900 text-gray-100 transition-colors duration-200">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded">Ir al contenido principal</a>
     <Header />
-    <main id="main-content" class="min-h-screen">
+    <main id="main-content" class="min-h-screen pt-[var(--header-height)]">
       <slot />
     </main>
     <footer class="bg-gray-800/80 backdrop-blur-sm border-t border-gray-700 py-8">

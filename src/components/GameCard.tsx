@@ -40,11 +40,15 @@ export const GameCard: React.FC<GameCardProps> = ({
 
       <div className="p-4 flex flex-col justify-between min-h-[180px]">
         <div>
-          <h3
-            className="font-bold text-lg mb-2 text-white truncate leading-tight"
-            title={deal.title}
-          >
-            {deal.title}
+          <h3 className="font-bold text-lg mb-2 leading-tight">
+            <a
+              href={`/game/?link=${deal.gameID}`}
+              className="block truncate rounded text-white transition-colors duration-200 hover:text-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              title={`Ver información de ${deal.title}`}
+              aria-label={`Ver información y precios de ${deal.title}`}
+            >
+              {deal.title}
+            </a>
           </h3>
 
           <div className="flex items-center justify-between mb-3">
